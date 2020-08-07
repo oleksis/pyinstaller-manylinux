@@ -23,6 +23,6 @@ RUN \
     && chmod +x /entrypoint.sh
 
 VOLUME /src/
-WORKDIR /src/
+# WORKDIR /src/
 
 ENTRYPOINT ["/entrypoint.sh"]

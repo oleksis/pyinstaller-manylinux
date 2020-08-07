@@ -7,7 +7,7 @@ set -e
 # Make sure .bashrc is sourced
 . /root/.bashrc
 
-WORKDIR=/src/
+WORKDIR=$GITHUB_WORKSPACE
 
 
 #
