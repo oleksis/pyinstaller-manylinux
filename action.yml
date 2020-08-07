@@ -1,0 +1,11 @@
+name: "PyInstaller ManyLinux 2014 Docker Action"
+description: "Run Pyinstaller using ManyLinux 2014 (x86_64)"
+inputs:
+  pyinstaller-params:
+    description: "List of parameters for pyinstaller"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.pyinstaller-params }}

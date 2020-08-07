@@ -7,10 +7,8 @@ set -e
 # Make sure .bashrc is sourced
 . /root/.bashrc
 
-# Allow the workdir to be set using an env var.
-# Useful for CI pipiles which use docker for their build steps
-# and don't allow that much flexibility to mount volumes
-WORKDIR=${SRCDIR:-/src}
+WORKDIR=/src/
+
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -33,14 +31,10 @@ fi
 cd $WORKDIR
 
 if [ -f requirements.txt ]; then
-    pip install -r requirements.txt
+    pip$PYTHON_VERSION install -r requirements.txt
 fi # [ -f requirements.txt ]
 
-echo "$@"
+echo "PyInstaller parameters: $@"
 
-if [[ "$@" == "" ]]; then
-    pyinstaller --clean -y --dist ./dist/linux --workpath /tmp *.spec
-    chown -R --reference=. ./dist/linux
-else
-    sh -c "$@"
-fi # [[ "$@" == "" ]]
+pyinstaller --clean -y --dist ./dist "$@"
+chown -R --reference=. ./dist
