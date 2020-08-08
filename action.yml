@@ -1,5 +1,8 @@
 name: "PyInstaller ManyLinux 2014 Docker Action"
 description: "Run Pyinstaller using ManyLinux 2014 (x86_64)"
+branding:
+  icon: "box"
+  color: "green"
 inputs:
   pyinstaller-params:
     description: "List of parameters for pyinstaller"
