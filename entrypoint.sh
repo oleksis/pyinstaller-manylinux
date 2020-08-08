@@ -30,6 +30,13 @@ fi
 
 cd $WORKDIR
 
+# Run setup.sh pre requirements (like pre-if metadata syntax for GitHub Action)
+if [ -f setup.sh ]; then
+    chmod +x ./setup.sh
+    ./setup.sh
+fi # [ -f setup.sh ]
+
+# Install requirements
 if [ -f requirements.txt ]; then
     pip$PYTHON_VERSION install -r requirements.txt
 fi # [ -f requirements.txt ]

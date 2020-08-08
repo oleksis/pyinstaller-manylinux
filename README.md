@@ -15,3 +15,7 @@ uses: oleksis/pyinstaller-manylinux@v1
 with:
   pyinstaller-params: "['-c', '-F', '--icon=assets/image.ico', '--exclude-module=test', '--name=app-binary', 'app_module/__main__.py']"
 ```
+
+## Notes
+
+This action can execute **`setup.sh`** if it exists in the repository, before installing the requirements (**`requirements.txt`**)
