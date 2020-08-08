@@ -31,7 +31,7 @@ fi
 cd $WORKDIR
 
 if [ -f requirements.txt ]; then
-    pip$PYTHON_VERSION install -r requirements.txt
+    pip install -r requirements.txt
 fi # [ -f requirements.txt ]
 
 echo "PyInstaller parameters: $@"

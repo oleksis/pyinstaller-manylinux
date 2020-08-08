@@ -9,12 +9,13 @@ ARG PYINSTALLER_VERSION=3.6
 
 ENV PYPI_URL=https://pypi.python.org/
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
-ENV PYTHON_VERSION=3
+# ManyLinux 2014 use Python 3.7
+# ENV PYTHON_VERSION=3
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
 
 RUN \
     set -x \
-    && pip$PYTHON_VERSION install pyinstaller==$PYINSTALLER_VERSION
+    && pip install pyinstaller==$PYINSTALLER_VERSION
 
 COPY entrypoint.sh /entrypoint.sh
 RUN \
