@@ -1,3 +1,4 @@
+![Test](https://github.com/oleksis/pyinstaller-manylinux/workflows/Test/badge.svg)
 # pyinstaller-manylinux
 PyInstaller ManyLinux 2014 Docker Action
 
