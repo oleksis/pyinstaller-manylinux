@@ -10,11 +10,13 @@ This action run [PyInstaller](https://www.pyinstaller.org/) using docker image f
 **Required** List of parameters for pyinstaller
 
 ## Example usage
-```
+```yaml
 uses: oleksis/pyinstaller-manylinux@v1
 with:
   pyinstaller-params: "['-c', '-F', '--icon=assets/image.ico', '--exclude-module=test', '--name=app-binary', 'app_module/__main__.py']"
 ```
+
+See more in [test.yml](.github/workflows/test.yml)
 
 ## Notes
 

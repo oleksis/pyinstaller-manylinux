@@ -1,0 +1,26 @@
+name: Test
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Binary using PyInstaller ManyLinux 2014 Docker Action
+      uses: oleksis/pyinstaller-manylinux@v1
+      with:
+        pyinstaller-params: "['-c', '-F', '--name=app', 'tests/app.py']"
+    - name: Upload Binary Distribution to Release
+      uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: ./dist/app
+        if-no-files-found: error
+    - name: Run app binary
+      run: |
+        chmod +x ./dist/app
+        ./dist/app

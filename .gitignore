@@ -1,0 +1,24 @@
+*.pyc
+*.pyo
+*.class
+*~
+*.DS_Store
+wine-py2exe/
+py2exe.log
+*.kate-swp
+build/
+dist/
+*.egg-info
+
+# IntelliJ related files
+.idea
+*.iml
+
+tmp/
+venv/
+.env
+
+*.spec
+
+# VS Code related files
+.vscode
