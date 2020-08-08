@@ -16,6 +16,9 @@ ENV PY37_BIN=/opt/python/cp37-cp37m/bin
 # Ensure we use PY37 in the PATH
 ENV PATH="$PY37_BIN:$PATH"
 
+# Python Devel binary dependencies
+RUN yum install python-devel
+
 RUN \
     set -x \
     && pip install pyinstaller==$PYINSTALLER_VERSION

@@ -13,5 +13,5 @@ This action run [PyInstaller](https://www.pyinstaller.org/) using docker image f
 ```
 uses: oleksis/pyinstaller-manylinux@v1
 with:
-  pyinstaller-params: "[-c, -F, --icon=assets/picta-dl.ico, --exclude-module=test, --name=picta-dl, picta_dl/__main__.py]"
+  pyinstaller-params: "['-c', '-F', '--icon=assets/picta-dl.ico', '--exclude-module=test', '--name=picta-dl', 'picta_dl/__main__.py']"
 ```
