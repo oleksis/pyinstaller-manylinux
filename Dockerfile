@@ -12,6 +12,9 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 # ManyLinux 2014 use Python 3.7
 # ENV PYTHON_VERSION=3
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
+ENV PY37_BIN=/opt/python/cp37-cp37m/bin
+# Ensure we use PY37 in the PATH
+ENV PATH="$PY37_BIN:$PATH"
 
 RUN \
     set -x \
