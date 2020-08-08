@@ -8,4 +8,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.pyinstaller-params }}
+    - ${{ fromJSON(inputs.pyinstaller-params) }}
