@@ -9,7 +9,6 @@ set -e
 
 WORKDIR=$GITHUB_WORKSPACE
 
-
 #
 # In case the user specified a custom URL for PYPI, then use
 # that one, instead of the default one.

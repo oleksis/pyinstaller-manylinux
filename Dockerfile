@@ -9,7 +9,7 @@ ARG PYINSTALLER_VERSION=3.6
 
 ENV PYPI_URL=https://pypi.python.org/
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
-# ManyLinux 2014 use Python 3.6
+# ManyLinux 2014 use Python 3.6 by default
 ENV PYTHON_VERSION=3
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
 # ENV PY37_BIN=/opt/python/cp37-cp37m/bin
@@ -18,11 +18,14 @@ ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
 
 # Python Devel binary dependencies on Centos 7
 RUN \
-    yum update -y \
-	&& yum install -y python3 python3-devel
+    yum -y install yum-utils \
+    && yum -y update \
+    && yum -y group install development \
+	&& yum -y install python3 python3-tools python3-devel python3-virtualenv
 
 RUN \
     set -x \
+    && python$PYTHON_VERSION -m pip install --upgrade pip setuptools wheel \
     && pip$PYTHON_VERSION install pyinstaller==$PYINSTALLER_VERSION
 
 COPY entrypoint.sh /entrypoint.sh
