@@ -40,6 +40,9 @@ if [ -f requirements.txt ]; then
     pip$PYTHON_VERSION install -r requirements.txt
 fi # [ -f requirements.txt ]
 
+# Source ~/.bashrc
+. /root/.bashrc
+
 echo "PyInstaller parameters: $@"
 
 pyinstaller --clean -y --dist ./dist "$@"
