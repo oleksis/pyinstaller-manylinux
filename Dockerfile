@@ -13,9 +13,9 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 # we use Python 3.6
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
-# ENV PY37_BIN=/opt/python/cp37-cp37m/bin
-# Ensure we use PY37 in the PATH
-# ENV PATH="$PY37_BIN:$PATH"
+ENV PY36_BIN=/opt/_internal/cpython-3.6.15/bin
+# Ensure we use PY36 in the PATH
+ENV PATH="$PY36_BIN:$PATH"
 
 # Python Devel binary dependencies on Debian 9
 RUN \
@@ -41,9 +41,6 @@ RUN \
     set -x \
     && mkdir -p /src/ \
     && chmod +x /entrypoint.sh
-
-RUN \
-    alias pyinstaller='pyhton -m pyinstaller'
 
 VOLUME /src/
 # WORKDIR /src/
