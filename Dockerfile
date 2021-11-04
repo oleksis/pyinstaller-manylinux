@@ -24,8 +24,11 @@ RUN \
 
 # Update Alternatives for Python
 RUN \
-    update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 \
-    && update-alternatives --install /usr/bin/python python /opt/_internal/cpython-3.6.15/bin/python3.6 2
+    update-alternatives --install /usr/bin/python python /opt/_internal/cpython-3.6.15/bin/python3.6 1 \
+    && update-alternatives --install /usr/bin/python3 python3 /opt/_internal/cpython-3.6.15/bin/python3 1 \
+    && update-alternatives --install /usr/bin/pip pip /opt/_internal/cpython-3.6.15/bin/pip 1 \
+    && update-alternatives --install /usr/bin/pip3 pip3 /opt/_internal/cpython-3.6.15/bin/pip3 1 \
+    && update-alternatives --install /usr/bin/pip3.6 pip3.6 /opt/_internal/cpython-3.6.15/bin/pip3.6 1
 
 RUN \
     set -x \
