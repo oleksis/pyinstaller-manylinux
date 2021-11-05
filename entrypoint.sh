@@ -1,15 +1,14 @@
-#!/bin/bash -i
+#!/bin/bash
 # From https://github.com/cdrx/docker-pyinstaller/blob/master/entrypoint-linux.sh
 
 # Fail on errors.
 set -e
 
-# Create if not exists
-touch $HOME/.bashrc
-# Make sure .bashrc is sourced
-. $HOME/.bashrc
-
-WORKDIR=$GITHUB_WORKSPACE
+if [ -z "$GITHUB_WORKSPACE" ]; then
+    WORKDIR="."
+else
+    WORKDIR=$GITHUB_WORKSPACE
+fi
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -39,13 +38,13 @@ fi # [ -f setup.sh ]
 
 # Install requirements
 if [ -f requirements.txt ]; then
-    pip$PYTHON_VERSION install -r requirements.txt
+    pyenv exec pip install -r requirements.txt
 fi # [ -f requirements.txt ]
 
 # Source ~/.bashrc
-. $HOME/.bashrc
+source $HOME/.bashrc
 
 echo "PyInstaller parameters: $@"
 
-pyinstaller --clean -y --dist ./dist "$@"
+pyenv exec pyinstaller --clean -y --dist ./dist "$@"
 chown -R --reference=. ./dist
