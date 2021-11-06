@@ -20,7 +20,7 @@ jobs:
         name: app
         path: ./dist/app
         if-no-files-found: error
-    - name: Run app binary
+    - name: Run app binary and check output
       run: |
         chmod +x ./dist/app
-        ./dist/app
+        [[ $(./dist/app) == "Hello out there 👋" ]]

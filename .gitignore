@@ -16,6 +16,7 @@ dist/
 
 tmp/
 venv/
+.venv/
 .env
 
 *.spec
