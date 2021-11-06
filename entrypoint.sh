@@ -4,6 +4,9 @@
 # Fail on errors.
 set -e
 
+# Adapted Environment variable HOME for GitHub Actions
+HOME=/root
+
 if [ -z "$GITHUB_WORKSPACE" ]; then
     WORKDIR="."
 else
