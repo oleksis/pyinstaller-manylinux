@@ -10,9 +10,9 @@ ARG PYTHON_LAST=3.6.15
 ARG PYINSTALLER_VERSION=3.6
 ARG OPENSSL_DIR=/usr/local/ssl
 
-
 ENV PYPI_URL=https://pypi.python.org/
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
+ENV HOME=${HOME}
 # ManyLinux 2.24 use Python 3.5 by default
 # we use Python 3.6
 ENV PYTHON_VERSION=${PYTHON_VERSION}
@@ -21,7 +21,6 @@ ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
 # ENV PY36_BIN=/opt/_internal/cpython-3.6.15/bin
 # Ensure we use PY36 in the PATH
 # ENV PATH="${PY36_BIN}:$PATH"
-
 ENV OPENSSL_DIR=${OPENSSL_DIR}
 ENV PYENV_ROOT="${HOME}/.pyenv"
 
@@ -43,9 +42,9 @@ RUN \
     && wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz \
     && tar -xzf openssl-1.1.1.tar.gz \
     && pushd openssl-1.1.1 \
-    && ./config --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} shared zlib \
-    && make \
-    && make install \
+    && ./config --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} shared zlib > /dev/null \
+    && make > /dev/null \
+    && make install > /dev/null \
     && popd
 
 ENV LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
