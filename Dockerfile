@@ -26,26 +26,33 @@ ENV PYENV_ROOT="${HOME}/.pyenv"
 
 # Python Devel binary dependencies on Debian 9
 # Requirement for install Python from source (Build dependencies)
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN \
-    apt-get update \
-    && apt-get install -y make checkinstall build-essential \
-    dpkg-dev libreadline-dev libncursesw5-dev libbz2-dev \
+    set -x \
+    && apt-get update -qq \
+    && apt-get install -qq -y --no-install-recommends \
+    make checkinstall build-essential dpkg-dev \
+    libreadline-dev libncursesw5-dev libbz2-dev \
     libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
-    libffi-dev zlib1g-dev curl llvm xz-utils \
+    libffi-dev zlib1g-dev curl liblzma-dev xz-utils \
     libxml2-dev libxmlsec1-dev liblzma-dev \
-    git wget upx ca-certificates
+    git wget upx ca-certificates \
+    && apt-get clean -qq \
+    && rm -rf /var/lib/apt/list/*
 
 # openssl 1.1.1
 RUN \
     set -x \
-    && apt-get -y remove libssl-dev \
+    && apt-get remove -qq -y libssl-dev \
     && wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz \
     && tar -xzf openssl-1.1.1.tar.gz \
     && pushd openssl-1.1.1 \
     && ./config --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} shared zlib > /dev/null \
     && make > /dev/null \
     && make install > /dev/null \
-    && popd
+    && popd \
+    && rm -rf openssl-1.1.1 openssl-1.1.1.tar.gz
 
 ENV LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
 ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}:$PATH"
