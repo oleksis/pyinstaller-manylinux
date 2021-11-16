@@ -35,7 +35,7 @@ docker run --name pyinstaller-manylinux \
 ```
 - View the logs in the docker container
 ```bash   
-docker logs pyinstaller-manylinux
+docker logs --tail 1000 -f pyinstaller-manylinux
 ```
 - New container with **interactive terminal typing** using bash
 ```bash

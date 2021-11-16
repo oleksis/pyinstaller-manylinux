@@ -21,14 +21,14 @@ if [[ "$PYPI_URL" != "https://pypi.python.org/" ]] || \
    [[ "$PYPI_INDEX_URL" != "https://pypi.python.org/simple" ]]; then
     # the funky looking regexp just extracts the hostname, excluding port
     # to be used as a trusted-host.
-    mkdir -p $HOME/.pip
-    echo "[global]" > $HOME/.pip/pip.conf
-    echo "index = $PYPI_URL" >> $HOME/.pip/pip.conf
-    echo "index-url = $PYPI_INDEX_URL" >> $HOME/.pip/pip.conf
-    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> $HOME/.pip/pip.conf
+    mkdir -p ${HOME}/.pip
+    echo "[global]" > ${HOME}/.pip/pip.conf
+    echo "index = $PYPI_URL" >> ${HOME}/.pip/pip.conf
+    echo "index-url = $PYPI_INDEX_URL" >> ${HOME}/.pip/pip.conf
+    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> ${HOME}/.pip/pip.conf
 
     echo "Using custom pip.conf: "
-    cat $HOME/.pip/pip.conf
+    cat ${HOME}/.pip/pip.conf
 fi
 
 cd $WORKDIR
@@ -39,13 +39,13 @@ if [ -f setup.sh ]; then
     ./setup.sh
 fi # [ -f setup.sh ]
 
+# Source ~/.bashrc
+source ${HOME}/.bashrc
+
 # Install requirements
 if [ -f requirements.txt ]; then
     pyenv exec pip install -r requirements.txt
 fi # [ -f requirements.txt ]
-
-# Source ~/.bashrc
-source $HOME/.bashrc
 
 echo "PyInstaller parameters: $@"
 
