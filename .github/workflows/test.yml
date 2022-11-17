@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build Binary using PyInstaller ManyLinux 2.24 Docker Action
-      uses: oleksis/pyinstaller-manylinux@v2.1.2
+    - name: Build Binary using PyInstaller ManyLinux 2.28 Docker Action
+      uses: oleksis/pyinstaller-manylinux@v2.2.0
       with:
         pyinstaller-params: "['-c', '-F', '--name=app', 'tests/app.py']"
     - name: Upload Binary Distribution to Release
