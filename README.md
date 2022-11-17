@@ -12,7 +12,7 @@ This action run [PyInstaller](https://www.pyinstaller.org/) using docker image f
 
 ## Example usage
 ```yaml
-uses: oleksis/pyinstaller-manylinux@v2.1.2
+uses: oleksis/pyinstaller-manylinux@v2.2.0
 with:
   pyinstaller-params: "['-c', '-F', '--icon=assets/image.ico', '--exclude-module=test', '--name=app-binary', 'app_module/__main__.py']"
 ```
