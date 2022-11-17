@@ -9,7 +9,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build Binary using PyInstaller ManyLinux 2.24 Docker Action
       uses: oleksis/pyinstaller-manylinux@v2.1.2
       with:

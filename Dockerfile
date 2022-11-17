@@ -1,61 +1,66 @@
-FROM quay.io/pypa/manylinux_2_24_x86_64 AS compile-image
+FROM quay.io/pypa/manylinux_2_28_x86_64 AS compile-image
 
 LABEL maintainer="Oleksis Fraga <oleksis.fraga at gmail.com>"
 
 SHELL ["/bin/bash", "-c"]
 
 ARG HOME=/root
-ARG PYTHON_VERSION=3.6
-ARG PYTHON_LAST=3.6.15
-ARG PYINSTALLER_VERSION=3.6
+ARG PYTHON_VERSION=3.8
+ARG PYTHON_LAST=3.8.15
+ARG PYINSTALLER_VERSION=5.6.2
+ARG OPENSSL_VERSION=openssl-1.1.1s
 ARG OPENSSL_DIR=/usr/local/ssl
+ARG UPX_VERSION=4.0.1
+ARG UPX_FILE=upx-${UPX_VERSION}-amd64_linux
 
 ENV PYPI_URL=https://pypi.python.org/
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 ENV HOME=${HOME}
-# ManyLinux 2.24 use Python 3.5 by default
-# we use Python 3.6
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 ENV PYTHON_LAST=${PYTHON_LAST}
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
-# ENV PY36_BIN=/opt/_internal/cpython-3.6.15/bin
-# Ensure we use PY36 in the PATH
-# ENV PATH="${PY36_BIN}:$PATH"
+# ENV PY38_BIN=/opt/_internal/cpython-3.8.15/bin
+# Ensure we use PY38 in the PATH
+# ENV PATH="${PY38_BIN}:$PATH"
+ENV OPENSSL_VERSION=${OPENSSL_VERSION}
 ENV OPENSSL_DIR=${OPENSSL_DIR}
 ENV PYENV_ROOT="${HOME}/.pyenv"
+ENV UPX_VERSION=${UPX_VERSION}
+ENV UPX_FILE=${UPX_FILE}
 
-# Python Devel binary dependencies on Debian 9
+# Python Devel binary dependencies on AlmaLinux 8.7 (Stone Smilodon)"
 # Requirement for install Python from source (Build dependencies)
-ENV DEBIAN_FRONTEND=noninteractive
-
 RUN \
-    set -x \
-    && apt-get update -qq \
-    && apt-get install -qq -y --no-install-recommends \
-    make checkinstall build-essential dpkg-dev \
-    libreadline-dev libncursesw5-dev libbz2-dev \
-    libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
-    libffi-dev zlib1g-dev curl liblzma-dev xz-utils \
-    libxml2-dev libxmlsec1-dev liblzma-dev \
-    git wget upx ca-certificates \
-    && apt-get clean -qq \
-    && rm -rf /var/lib/apt/list/*
+    set -exuo pipefail \
+    && dnf -y install --allowerasing make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel \
+#    openssl-devel \
+    tk-devel libffi-devel xz-devel libuuid-devel gdbm-devel libnsl2-devel \
+    && dnf clean all \
+    && rm -rf /var/cache/yum
 
-# openssl 1.1.1
+# UPX
 RUN \
-    set -x \
-    && apt-get remove -qq -y libssl-dev \
-    && wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz \
-    && tar -xzf openssl-1.1.1.tar.gz \
-    && pushd openssl-1.1.1 \
+    set -exuo pipefail \ 
+    && curl -s -L -o ${UPX_FILE}.tar.xz https://github.com/upx/upx/releases/download/v${UPX_VERSION}/${UPX_FILE}.tar.xz \
+    && tar -xf ${UPX_FILE}.tar.xz -C /opt \
+    && rm -rf ${UPX_FILE}.tar.xz
+    
+# OpenSSL
+RUN \
+    set -exuo pipefail \
+    && yum erase -y openssl-devel \
+    && curl -s -L -o ${OPENSSL_VERSION}.tar.gz https://www.openssl.org/source/${OPENSSL_VERSION}.tar.gz \
+    && tar -xzf ${OPENSSL_VERSION}.tar.gz \
+    && pushd ${OPENSSL_VERSION} \
     && ./config --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} shared zlib > /dev/null \
     && make > /dev/null \
     && make install > /dev/null \
     && popd \
-    && rm -rf openssl-1.1.1 openssl-1.1.1.tar.gz
+    && rm -rf ${OPENSSL_VERSION} ${OPENSSL_VERSION}.tar.gz \
+    && ${OPENSSL_DIR}/bin/openssl version
 
-ENV LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
-ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}:$PATH"
+#ENV LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
+ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}:/opt/${UPX_FILE}:$PATH"
 
 # Pyenv
 RUN \
@@ -65,7 +70,6 @@ RUN \
     && echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ${HOME}/.bashrc \
     && echo 'eval "$(pyenv init -)"' >> ${HOME}/.bashrc \
     && echo 'eval "$(pyenv virtualenv-init -)"' >> ${HOME}/.bashrc \
-    && echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ${HOME}/.bashrc \
     && curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
     && source ${HOME}/.bashrc \
     && CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
@@ -76,14 +80,14 @@ RUN \
     && pyenv exec pip install --upgrade pip setuptools wheel \
     && pyenv exec pip install --upgrade pyinstaller==$PYINSTALLER_VERSION
 
-COPY entrypoint.sh /entrypoint.sh
+COPY pyinstaller-entrypoint.sh /usr/local/bin/pyinstaller-entrypoint.sh
 
 RUN \
     set -x \
     && mkdir -p /src/ \
-    && chmod +x /entrypoint.sh
+    && chmod +x /usr/local/bin/pyinstaller-entrypoint.sh
 
 VOLUME /src/
 # WORKDIR /src/
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["pyinstaller-entrypoint.sh"]

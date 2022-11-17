@@ -1,9 +1,9 @@
 [![Test](https://github.com/oleksis/pyinstaller-manylinux/workflows/Test/badge.svg)](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/test.yml)
 
-# pyinstaller-manylinux
-PyInstaller ManyLinux 2.24 Docker Action
+# pyinstaller-manylinux-2.28
+PyInstaller ManyLinux 2.28 Docker Action based on AlmaLinux 8.7 (Stone Smilodon)"
 
-This action run [PyInstaller](https://www.pyinstaller.org/) using docker image from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_24_x86_64)
+This action run [PyInstaller](https://www.pyinstaller.org/) using docker image from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
 
 ## Inputs
 `pyinstaller-params`
@@ -20,22 +20,22 @@ with:
 See more in [test.yml](.github/workflows/test.yml)
 
 ## How to use the Dockerfile
-- Build the image *pyinstaller-manylinux*
+- Build the image *pyinstaller-manylinux-2.28*
 ```bash
-docker build -t pyinstaller-manylinux -f ./Dockerfile .
+docker build -t pyinstaller-manylinux-2.28 -f ./Dockerfile .
 ```
 - Create bundle app using pyinstaller in the docker image
 ```bash
-docker run --name pyinstaller-manylinux \
+docker run --name pyinstaller-manylinux-2.28 \
             -it -d \
             --workdir /src \
             -v $(pwd):/src \
-            pyinstaller-manylinux \
+            pyinstaller-manylinux-2.28 \
             -c -F --name=app tests/app.py
 ```
 - View the logs in the docker container
 ```bash   
-docker logs --tail 1000 -f pyinstaller-manylinux
+docker logs --tail 1000 -f pyinstaller-manylinux-2.28
 ```
 - New container with **interactive terminal typing** using bash
 ```bash
@@ -44,7 +44,7 @@ docker run --name pyinstaller-pyenv \
             --entrypoint bash \
             --workdir /src \
             -v $(pwd):/src \
-            pyinstaller-manylinux
+            pyinstaller-manylinux-2.28
 ```
 - Start the new container using interactive bash
 ```bash
