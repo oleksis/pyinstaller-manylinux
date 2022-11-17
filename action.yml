@@ -1,5 +1,5 @@
-name: "PyInstaller ManyLinux 2.24 Docker Action"
-description: "Run Pyinstaller using ManyLinux 2.24 (x86_64) Debian 9 based"
+name: "PyInstaller ManyLinux 2.28 Docker Action"
+description: "Run Pyinstaller using ManyLinux 2.28 (x86_64) AlmaLinux 8.7 based"
 branding:
   icon: "box"
   color: "green"
