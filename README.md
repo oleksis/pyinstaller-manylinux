@@ -50,9 +50,8 @@ docker run --name pyinstaller-pyenv \
 ```bash
 docker start -i pyinstaller-pyenv
 
-root@2ec766053649:/src# pyenv versions
-  system
-* 3.6.15 (set by /root/.pyenv/version)
+[root@882bd364e3fe src]# pyenv versions
+* 3.8.15 (set by /root/.pyenv/version)
 ```
 - Run the app in the local machine
 ```bash
@@ -68,3 +67,16 @@ Hello out there 👋
 ```bash
 cp /usr/local/lib/libcrypt.so.2 .
 ```
+
+## Releases
+PyInstaller ManyLinux 2.28 Docker Action [v2.2.0](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.2.0)
+- This action run PyInstaller using docker image (AlmaLinux 8.7 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
+- Python 3.8
+
+PyInstaller ManyLinux 2.24 Docker Action [v2.1.2](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.1.2)
+- This action run PyInstaller using docker image (Debian 9 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_24_x86_64)
+- Python 3.6
+
+PyInstaller ManyLinux 2014 Docker Action [v1.0.0](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v1)
+- This action run PyInstaller using docker image (Centos 7 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux2014_x86_64)
+- Python 3.6

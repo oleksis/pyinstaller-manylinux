@@ -59,7 +59,6 @@ RUN \
     && rm -rf ${OPENSSL_VERSION} ${OPENSSL_VERSION}.tar.gz \
     && ${OPENSSL_DIR}/bin/openssl version
 
-#ENV LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
 ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}:/opt/${UPX_FILE}:$PATH"
 
 # Pyenv
