@@ -1,4 +1,5 @@
 [![Test](https://github.com/oleksis/pyinstaller-manylinux/workflows/Test/badge.svg)](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/test.yml)
+[![Build](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/build.yml/badge.svg)](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/build.yml)
 
 # pyinstaller-manylinux-2.28
 PyInstaller ManyLinux 2.28 Docker Action based on AlmaLinux 8.7 (Stone Smilodon)"
@@ -12,7 +13,7 @@ This action run [PyInstaller](https://www.pyinstaller.org/) using docker image f
 
 ## Example usage
 ```yaml
-uses: oleksis/pyinstaller-manylinux@v2.2.0
+uses: oleksis/pyinstaller-manylinux@v2.2.1
 with:
   pyinstaller-params: "['-c', '-F', '--icon=assets/image.ico', '--exclude-module=test', '--name=app-binary', 'app_module/__main__.py']"
 ```
@@ -73,7 +74,7 @@ cp /usr/local/lib/libcrypt.so.2 .
 ```
 
 ## Releases
-PyInstaller ManyLinux 2.28 Docker Action [v2.2.0](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.2.0)
+PyInstaller ManyLinux 2.28 Docker Action [v2.2.1](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.2.1)
 - This action run PyInstaller using docker image (AlmaLinux 8.7 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
 - Python 3.8
 
