@@ -1,6 +1,9 @@
 FROM quay.io/pypa/manylinux_2_28_x86_64 AS compile-image
 
 LABEL maintainer="Oleksis Fraga <oleksis.fraga at gmail.com>"
+LABEL org.opencontainers.image.source=https://github.com/oleksis/pyinstaller-manylinux
+LABEL org.opencontainers.image.description="Run PyInstaller on ManyLinux 2.28 (AlmaLinux 8.7 based) using Pyenv"
+LABEL org.opencontainers.image.licenses=MIT
 
 SHELL ["/bin/bash", "-c"]
 

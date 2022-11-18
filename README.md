@@ -59,6 +59,10 @@ docker start -i pyinstaller-pyenv
 Hello out there 👋
 ```
 
+## How to use Github Container Registry
+[Github Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+- [pyinstaller-manylinux](https://github.com/oleksis/pyinstaller-manylinux/pkgs/container/pyinstaller-manylinux)
+
 ## Notes
 
 1. This action can execute **`setup.sh`** if it exists in the repository, before installing the requirements (**`requirements.txt`**)

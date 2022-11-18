@@ -3,10 +3,13 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
-    name: Build
+    name: Build bundle app with PyInstaller and Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
