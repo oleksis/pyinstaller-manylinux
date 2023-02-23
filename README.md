@@ -2,7 +2,7 @@
 [![Build](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/build.yml/badge.svg)](https://github.com/oleksis/pyinstaller-manylinux/actions/workflows/build.yml)
 
 # pyinstaller-manylinux-2.28
-PyInstaller ManyLinux 2.28 Docker Action based on AlmaLinux 8.7 (Stone Smilodon)"
+PyInstaller ManyLinux 2.28 Docker Action based on [AlmaLinux](https://github.com/pypa/manylinux) 8.7 (Stone Smilodon)"
 
 This action run [PyInstaller](https://www.pyinstaller.org/) using docker image from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
 

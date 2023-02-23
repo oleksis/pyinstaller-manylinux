@@ -8,12 +8,12 @@ LABEL org.opencontainers.image.licenses=MIT
 SHELL ["/bin/bash", "-c"]
 
 ARG HOME=/root
-ARG PYTHON_VERSION=3.8
-ARG PYTHON_LAST=3.8.15
-ARG PYINSTALLER_VERSION=5.6.2
-ARG OPENSSL_VERSION=openssl-1.1.1s
+ARG PYTHON_VERSION=3.10
+ARG PYTHON_LAST=3.10.10
+ARG PYINSTALLER_VERSION=5.8.0
+ARG OPENSSL_VERSION=openssl-1.1.1t
 ARG OPENSSL_DIR=/usr/local/ssl
-ARG UPX_VERSION=4.0.1
+ARG UPX_VERSION=4.0.2
 ARG UPX_FILE=upx-${UPX_VERSION}-amd64_linux
 
 ENV PYPI_URL=https://pypi.python.org/
@@ -22,9 +22,9 @@ ENV HOME=${HOME}
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 ENV PYTHON_LAST=${PYTHON_LAST}
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
-# ENV PY38_BIN=/opt/_internal/cpython-3.8.15/bin
-# Ensure we use PY38 in the PATH
-# ENV PATH="${PY38_BIN}:$PATH"
+# ENV PY310_BIN=/opt/_internal/cpython-3.10.10/bin
+# Ensure we use PY310 in the PATH
+# ENV PATH="${PY310_BIN}:$PATH"
 ENV OPENSSL_VERSION=${OPENSSL_VERSION}
 ENV OPENSSL_DIR=${OPENSSL_DIR}
 ENV PYENV_ROOT="${HOME}/.pyenv"
@@ -62,7 +62,7 @@ RUN \
     && rm -rf ${OPENSSL_VERSION} ${OPENSSL_VERSION}.tar.gz \
     && ${OPENSSL_DIR}/bin/openssl version
 
-ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}:/opt/${UPX_FILE}:$PATH"
+ENV PATH="${HOME}/.pyenv/bin:${OPENSSL_DIR}/bin:/opt/${UPX_FILE}:$PATH"
 
 # Pyenv
 RUN \
