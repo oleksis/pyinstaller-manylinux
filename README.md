@@ -13,7 +13,7 @@ This action run [PyInstaller](https://www.pyinstaller.org/) using docker image f
 
 ## Example usage
 ```yaml
-uses: oleksis/pyinstaller-manylinux@v2.2.1
+uses: oleksis/pyinstaller-manylinux@v2.3.0
 with:
   pyinstaller-params: "['-c', '-F', '--icon=assets/image.ico', '--exclude-module=test', '--name=app-binary', 'app_module/__main__.py']"
 ```
@@ -52,7 +52,7 @@ docker run --name pyinstaller-pyenv \
 docker start -i pyinstaller-pyenv
 
 [root@882bd364e3fe src]# pyenv versions
-* 3.8.15 (set by /root/.pyenv/version)
+* 3.10.10 (set by /root/.pyenv/version)
 ```
 - Run the app in the local machine
 ```bash
@@ -74,6 +74,10 @@ cp /usr/local/lib/libcrypt.so.2 .
 ```
 
 ## Releases
+PyInstaller ManyLinux 2.28 Docker Action [v2.3.0](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.3.0)
+- This action run PyInstaller using docker image (AlmaLinux 8.7 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
+- Python 3.10
+
 PyInstaller ManyLinux 2.28 Docker Action [v2.2.1](https://github.com/oleksis/pyinstaller-manylinux/releases/tag/v2.2.1)
 - This action run PyInstaller using docker image (AlmaLinux 8.7 based) from [pypa/manylinux repository](https://quay.io/repository/pypa/manylinux_2_28_x86_64)
 - Python 3.8
