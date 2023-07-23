@@ -9,9 +9,9 @@ SHELL ["/bin/bash", "-c"]
 
 ARG HOME=/root
 ARG PYTHON_VERSION=3.10
-ARG PYTHON_LAST=3.10.10
-ARG PYINSTALLER_VERSION=5.8.0
-ARG OPENSSL_VERSION=openssl-1.1.1t
+ARG PYTHON_LAST=3.10.12
+ARG PYINSTALLER_VERSION=5.13.0
+ARG OPENSSL_VERSION=openssl-1.1.1u
 ARG OPENSSL_DIR=/usr/local/ssl
 ARG UPX_VERSION=4.0.2
 ARG UPX_FILE=upx-${UPX_VERSION}-amd64_linux
@@ -22,7 +22,7 @@ ENV HOME=${HOME}
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 ENV PYTHON_LAST=${PYTHON_LAST}
 ENV PYINSTALLER_VERSION=${PYINSTALLER_VERSION}
-# ENV PY310_BIN=/opt/_internal/cpython-3.10.10/bin
+# ENV PY310_BIN=/opt/_internal/cpython-3.10.12/bin
 # Ensure we use PY310 in the PATH
 # ENV PATH="${PY310_BIN}:$PATH"
 ENV OPENSSL_VERSION=${OPENSSL_VERSION}
@@ -55,9 +55,13 @@ RUN \
     && curl -s -L -o ${OPENSSL_VERSION}.tar.gz https://www.openssl.org/source/${OPENSSL_VERSION}.tar.gz \
     && tar -xzf ${OPENSSL_VERSION}.tar.gz \
     && pushd ${OPENSSL_VERSION} \
-    && ./config --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} shared zlib > /dev/null \
+    && ./config no-shared --prefix=${OPENSSL_DIR} --openssldir=${OPENSSL_DIR} \
+       CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2" \
+       CFLAGS="-g -O2 -Wall -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC" \
+       CXXFLAGS="-g -O2 -Wall -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC" \
+       LDFLAGS="-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fPIC" \
     && make > /dev/null \
-    && make install > /dev/null \
+    && make install_sw > /dev/null \
     && popd \
     && rm -rf ${OPENSSL_VERSION} ${OPENSSL_VERSION}.tar.gz \
     && ${OPENSSL_DIR}/bin/openssl version
